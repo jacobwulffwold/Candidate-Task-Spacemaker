@@ -22,7 +22,7 @@ function ControlPad (props){
 
 export default function WorkSurface(props) {
   return(
-    <MapContainer center={[48.85770582708133, 2.2919046878814697]} zoom={15} scrollWheelZoom={false} className="mapContainer">
+    <MapContainer center={[48.85770582708133, 2.2919046878814697]} zoom={16} scrollWheelZoom={false} className="mapContainer">
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
