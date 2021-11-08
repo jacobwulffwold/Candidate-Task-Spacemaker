@@ -149,9 +149,15 @@ export default function App() {
         solutionDict[currentIndex].features[selectedPolygons[1]].geometry.coordinates)
       
       var newSolutionDict = solutionDict;
-
-      newSolutionDict[currentIndex].features.splice(selectedPolygons[0], 1);
-      newSolutionDict[currentIndex].features.splice(selectedPolygons[1], 1);
+      if (selectedPolygons[0] > selectedPolygons[1]) {
+        newSolutionDict[currentIndex].features.splice(selectedPolygons[0], 1);
+        newSolutionDict[currentIndex].features.splice(selectedPolygons[1], 1);
+      }
+      else {
+        newSolutionDict[currentIndex].features.splice(selectedPolygons[1], 1);
+        newSolutionDict[currentIndex].features.splice(selectedPolygons[0], 1);
+      }
+      
       newSolutionDict[currentIndex].features = [...newSolutionDict[currentIndex].features, ...newPolygons.map(eachCoordinates => 
         ({
           "type": "Feature",
@@ -160,8 +166,8 @@ export default function App() {
             "type": "Polygon",
             "coordinates": eachCoordinates
           }
-        }))];   
-
+        }))];
+      console.log(newSolutionDict[currentIndex])
       setSelectedPolygons([]);
       setSolutionDict(newSolutionDict);
     }

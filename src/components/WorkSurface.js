@@ -27,7 +27,7 @@ export default function WorkSurface(props) {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {props.solutionDict[props.currentIndex].features.map((eachPolygon, index) =>( 
+      {props.solutionDict[props.currentIndex].features.map((eachPolygon, index) =>(  //assign an eventhandler to each polygon, key needed for updateability
       <GeoJSON data={eachPolygon} key={hash(eachPolygon)} eventHandlers={{click: () => {props.selectPolygon(index)}}}/>))}
       <div className='leaflet-bottom leaflet-left'>
         <div className='leaflet-control leaflet-bar'>

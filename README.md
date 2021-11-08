@@ -1,7 +1,13 @@
 # Candidate Task: Software Engineer - State Management (Spacemaker)
 Takes in multiple GeoJSON featuregroups of polygons, and allows simple boolean editing of the different sets. Displays geographic area coverage of active solution set.
 
-## Install packages
+## Install
+
+node.js - https://nodejs.org/en/
+
+Run 'npm install' in terminal and everything should be fine.
+
+In case that doesn't work, here are the packages to install:
 
 - npm i object-hash
 - npm i react react-dom leaflet
