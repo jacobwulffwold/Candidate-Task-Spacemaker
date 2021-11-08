@@ -10,8 +10,6 @@ export default function StatisticsDisplay(props) {
 
         // get union of all features to prevent counting intersections double
         for (let i = 1; i < FCollection.features.length; i++) {
-            console.log(unionFeature);
-            console.log(turf.polygon(FCollection.features[i].geometry.coordinates));
             unionFeature = turf.union(unionFeature, turf.polygon(FCollection.features[i].geometry.coordinates));
         }
         return Math.round(turf.area(unionFeature));

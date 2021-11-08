@@ -13,18 +13,27 @@ code {
 }
 
 :root{
-  --button-color: rgba(0, 0, 255, 0.308);
-  --button-active-color: rgba(68, 68, 160, 0.603);
+  --button-color: rgba(66, 83, 233, 0.123);
+  --button-hover-color: rgba(45, 81, 238, 0.208);
+  --button-active-color: rgba(45, 81, 238, 0.803);
   --main-bg-color: floralwhite;
-  --std-border: 2px groove rgba(0, 0, 0, 0.281)
+  --std-border: 2px groove rgba(0, 0, 0, 0.281);
+  --app-height: 90vh;
+  --header-height: 10vh;
 }
 
 button{
+  font-weight: bold;
   background-color: var(--button-color);
 }
 
 button:active{
   background-color: var(--button-active-color);
+}
+
+button:hover{
+  cursor: pointer;
+  background-color: var(--button-hover-color);
 }
 
 .page_container{
@@ -41,7 +50,7 @@ button:active{
 
 .app_container{
   /* padding-top: 20%; */
-  height: 80vh;
+  height: var(--app-height);
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -58,7 +67,7 @@ button:active{
 
 .header{
   width: 100%;
-  height: 20vh;
+  height: var(--header-height);
   background-color: black;
   display: flex;
   flex-direction: row;
@@ -66,16 +75,14 @@ button:active{
 
 .imgheader{
   display: block;
-  max-height: 20vh;
+  max-height: var(--header-height);
 }
 
 /* App parts */
 
 .solutions{
-  height: 80vh;
-  width: 20%;
-  border-top: var(--std-border);
-  border-bottom: var(--std-border);
+  height: var(--app-height);
+  width: 15%;
   /* border-bottom: 2px groove rgba(0, 0, 0, 0.281) */
 }
 
@@ -92,16 +99,16 @@ button:active{
 
 /* work surface */
 .workSurface{
-  border: var(--std-border);
-  /* border-left: 2px groove rgba(0, 0, 0, 0.281); */
-  /* border-radius: 1%; */
-  height: 80vh;
-  width: 60%;
+  border-top: none;
+  border-bottom: none;
+  border-right: var(--std-border);
+  border-left: var(--std-border);
+  height: var(--app-height);
+  width: 70%;
 }
 
 .mapContainer{
-  height: 80vh;
-  display: block;
+  height: var(--app-height);
   /* border-radius: 1%; */
 }
 
@@ -122,10 +129,8 @@ button:active{
 
 /* statistics */
 .statistics{
-  height: 80vh;
-  width: 20%;
-  border-top: var(--std-border);
-  border-bottom: var(--std-border);
+  height: var(--app-height);
+  width: 15%;
 }
 
 .statisticsDisplay{

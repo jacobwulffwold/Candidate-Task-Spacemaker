@@ -4,8 +4,6 @@ import Header from './Header';
 import WorkSurface from './WorkSurface';
 import SolutionDisplay from './SolutionDisplay'
 import StatisticsDisplay from './StatisticsDisplay';
-import { MapContainer, TileLayer, Marker, Popup, GeoJSON, Polygon, MapConsumer, useMap  } from 'react-leaflet';
-import L from 'leaflet';
 
 // library for boolean operations
 const polygonClipping = require('polygon-clipping');
