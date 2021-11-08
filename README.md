@@ -1,3 +1,13 @@
+# extra packages
+
+- object hash
+- react react-dom leaflet
+- react-leaflet
+- leaflet
+- clipper-lib
+- leaflet-clipper
+- Typescript: -D @types/leaflet
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
