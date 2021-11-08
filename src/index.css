@@ -124,7 +124,10 @@ button:hover{
 .controlPadButton{
   width: 100%;
   height: 5vh;
-  border: var(--std-border);
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  border-left: none;;
 }
 
 /* statistics */
