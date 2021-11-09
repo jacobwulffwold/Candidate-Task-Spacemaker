@@ -134,30 +134,50 @@ var initial_solution_dict = {0: sol1, 1: sol2}
 export default function App() {
 
   const [currentIndex, setCurrentIndex] = useState(0); //index of displayed solution
-  const [solutionDict, setSolutionDict] = useState(initial_solution_dict); // state of solutions
-  const [selectedPolygons, setSelectedPolygons] = useState([]); //array of index of selected polygons, should be changed to set
+  const [solutionDict, setSolutionDict] = useState(JSON.parse(JSON.stringify(initial_solution_dict))); // state of solutions
+  const [selectedPolygons, setSelectedPolygons] = useState(new Set()); //array of index of selected polygons, should be changed to set
 
-  function selectPolygon(i){
-    setSelectedPolygons([...selectedPolygons, i]);
+  function selectPolygon(ePointer, i){
+    var newSet = selectedPolygons;
+    var newStyle = {'color': '#CD5C5C'};
+    
+    if (newSet.has(i)) {
+      newSet.delete(i);
+      newStyle = {'color': '#38f'};
+    }
+    else{
+      newSet.add(i);
+    }
+    ePointer.layer.setStyle(newStyle);
+    setSelectedPolygons(newSet);
   }
 
-  function booleanOperation(method){ // Perform boolean operation and update state
-    
-    if (selectedPolygons.length === 2)  { //for simplicity = 2, but this could be improved to be general
+  function changeActiveSolution(i){
+    setCurrentIndex(i);
+    setSelectedPolygons(new Set());
+  }
 
-      var newPolygons = polygonClipping[method](solutionDict[currentIndex].features[selectedPolygons[0]].geometry.coordinates, 
-        solutionDict[currentIndex].features[selectedPolygons[1]].geometry.coordinates)
+  function booleanOperation(method){ // Perform boolean operation on selected polygons and update state
+    
+    var selectedPolygonsArr = Array.from(selectedPolygons);
+    if (selectedPolygonsArr.length > 0) {
       
+      
+      selectedPolygonsArr = selectedPolygonsArr.sort(function(a, b){return b-a});
+
+      function f(value, index){ 
+        console.log("value: "+value)
+        console.log("index: "+index)
+        return  solutionDict[currentIndex].features[value].geometry.coordinates;
+      }
+
+      var newPolygons = polygonClipping[method](...selectedPolygonsArr.map((value, index) => (f(value,index))));
+      console.log(newPolygons);
       var newSolutionDict = solutionDict;
-      if (selectedPolygons[0] > selectedPolygons[1]) {
-        newSolutionDict[currentIndex].features.splice(selectedPolygons[0], 1);
-        newSolutionDict[currentIndex].features.splice(selectedPolygons[1], 1);
+      for (let i = 0; i < selectedPolygonsArr.length; i++) {
+        newSolutionDict[currentIndex].features.splice(selectedPolygonsArr[i], 1);
       }
-      else {
-        newSolutionDict[currentIndex].features.splice(selectedPolygons[1], 1);
-        newSolutionDict[currentIndex].features.splice(selectedPolygons[0], 1);
-      }
-      
+        
       newSolutionDict[currentIndex].features = [...newSolutionDict[currentIndex].features, ...newPolygons.map(eachCoordinates => 
         ({
           "type": "Feature",
@@ -167,10 +187,14 @@ export default function App() {
             "coordinates": eachCoordinates
           }
         }))];
-      console.log(newSolutionDict[currentIndex])
-      setSelectedPolygons([]);
+      setSelectedPolygons(new Set());
       setSolutionDict(newSolutionDict);
+      console.log(initial_solution_dict)
     }
+    else{
+      console.log("No polygons selected");
+    }
+
   }
 
   return (
@@ -178,12 +202,14 @@ export default function App() {
       <Header />
       <div className='app_container'>
         <div className='solutions'>
-          <SolutionDisplay onClick = {(i) => setCurrentIndex(i)} numberOfSolutions={Object.keys(solutionDict).length}/>
+          <SolutionDisplay onClick = {(i) => changeActiveSolution(i)} numberOfSolutions={Object.keys(solutionDict).length}/>
         </div>
         <div className='workSurface'>
           <WorkSurface currentIndex={currentIndex} solutionDict={solutionDict}
           booleanOperation={(method) => booleanOperation(method)}
-          selectPolygon = {(i) => selectPolygon(i)}/>
+          selectPolygon = {(ePointer, i) => selectPolygon(ePointer, i)}
+          selectedPolygons={selectedPolygons}
+          mapCenter={initial_solution_dict[currentIndex].features[0].geometry.coordinates[0][0].slice().reverse()}/>
         </div>
         <div className='statistics'>
           <StatisticsDisplay currentIndex={currentIndex} solutionDict={solutionDict}/>

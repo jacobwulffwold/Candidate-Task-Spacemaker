@@ -13,13 +13,14 @@ code {
 }
 
 :root{
-  --button-color: rgba(66, 83, 233, 0.123);
-  --button-hover-color: rgba(45, 81, 238, 0.208);
-  --button-active-color: rgba(45, 81, 238, 0.803);
+  --button-color: rgba(51, 136, 255, 0.507);
+  --button-hover-color: rgba(51, 136, 255, 0.76);
+  --button-active-color: #38f;
   --main-bg-color: floralwhite;
   --std-border: 2px groove rgba(0, 0, 0, 0.281);
   --app-height: 90vh;
   --header-height: 10vh;
+  --polClickedColor: #CD5C5C
 }
 
 button{

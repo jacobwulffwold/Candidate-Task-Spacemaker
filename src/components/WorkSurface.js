@@ -20,15 +20,19 @@ function ControlPad (props){
 }
 
 
+
+
 export default function WorkSurface(props) {
+    
+
   return(
-    <MapContainer center={[48.85770582708133, 2.2919046878814697]} zoom={16} scrollWheelZoom={false} className="mapContainer">
+    <MapContainer center={props.mapCenter} zoom={16} scrollWheelZoom={false} className="mapContainer">
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {props.solutionDict[props.currentIndex].features.map((eachPolygon, index) =>(  //assign an eventhandler to each polygon, key needed for updateability
-      <GeoJSON data={eachPolygon} key={hash(eachPolygon)} eventHandlers={{click: () => {props.selectPolygon(index)}}}/>))}
+      <GeoJSON data={eachPolygon} key={props.selectedPolygons.has(index).toString()+hash(eachPolygon)} style={props.selectedPolygons.has(index) ? {'color': '#CD5C5C'} : {'color': '#38f'} } eventHandlers={{click: (ePointer) => {props.selectPolygon(ePointer, index)}}}/>))}
       <div className='leaflet-bottom leaflet-left'>
         <div className='leaflet-control leaflet-bar'>
           <ControlPad onClick={(method) => props.booleanOperation(method)}/>

@@ -12,7 +12,7 @@ export default function SolutionDisplay(props) {
     
     function createButton(i) {
         return(
-        <SolutionButton index={i} onClick={() => props.onClick(i)} />
+        <SolutionButton key={i} index={i+1} onClick={() => props.onClick(i)} />
         );
     }
     
